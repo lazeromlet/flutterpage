@@ -9,19 +9,24 @@ Flutter is a toolkit that allows you to create applications for Android and IOS 
 ## Getting Started
 
 To start coding our Flutter Application, We first need a few things downloaded on our device they are as follows:
+
 1.	[Android Studio](https://developer.android.com/studio)
 2.	[Git](https://git-scm.com/downloads)
 3.	[Flutter](https://flutter.dev/docs/get-started/install)
+
 This can be done without git, but it is recommended just to pull Flutter from the GitHub Repo as described on their website. For each application click on the linked tags and follow the instructions on each website. Pay special attention to Flutter’s install instructions, make sure it is installed somewhere that does not require admin privileges. After all is installed, you can run ‘flutter doctor’ in the flutter console to make sure all the appropriate files are downloaded, and that android studio can be found. If android studio is installed and this shows that it isn’t try moving android studio into a file location that doesn’t require admin privileges. If all works smoothly it should look something like this:
-![flutter doctor](flutter doctor)
+
+![flutter_doctor](./Images/flutter_doctor.png)
 
 As shown in this picture you can also run flutter commands in the cmd console on windows if u add flutter to your system’s path, to do so type “path” in the start menu and press enter, select “Environment Variables” from the pop up. From there select path from the list and press “Edit”, just add a new path variable by adding the file location of the flutter install. An example of this is shown below.
-![flutter doctor](addingpath)
+
+![addingpath](./Images/addingpath.png)
 
 Before you can use flutter with android studio you need to setup some configurations first. You need a virtual device, but android studio should start you with one, you can use whatever you like. In Android studio we emulate an android phone when we run, this is taxing on a computer, especially an older one, If you enable hardware for the graphics settings of your virtual device you may get faster rendering, although it probably won’t fix the problem completely.
 
 After this go to the main android studio pop up and tap “configure” and click “plugins”. In the marketplace type flutter and click the first plugin and install it. (as well as the dart plugin it is dependent on). The screens should look like they do below during this step.
-![flutter doctor](AS flutterinstall)
+
+![AS_flutterinstall](./Images/AS_flutterinstall.png)
 
 After this you can now create and run flutter projects in Android studio, congratulations!
 
