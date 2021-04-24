@@ -2,7 +2,22 @@
 
 ## Overview
 
-Flutter is a toolkit that allows you to create applications for Android and IOS from a single codebase in a different language entirely. Flutter runs with the dart language as its Coding language. This language was specifically designed for Flutter it has relatively simple syntax and is easy to pick up. Flutter was designed specifically for creating User Interfaces (UI’s) and that is what it is best at. In Flutter everything is essentially a widget and UI's are created with widget trees, widgets can be inside of other widgets and have text or anything else be inside of them as well. It allows for static and dynamic typing when coding variables. One of the features heavily hyped up about the Platform is the ability to see changes made to an app while it is running with the "hot-reload" feature, potentially saving coders a decent amount of time when prototyping. It also allows for ahead of time (AOT) compiling to native machine code which makes for quick startup times for apps. It also has the ability to compiler into JavaScript so it can be used to create Web Apps out of the same source code that the mobile apps were developed with.
+Flutter is a toolkit that allows you to create applications for Android and IOS from a single codebase in a different language entirely. Flutter runs with the dart language as its Coding language. This language was specifically designed for Flutter it has relatively simple syntax and is easy to pick up. Flutter was designed specifically for creating User Interfaces (UI’s) and that is what it is best at. In Flutter everything is essentially a widget and UI's are created with widget trees, widgets can be inside of other widgets and have text or anything else be inside of them as well. It allows for static and dynamic typing when coding variables. One of the features heavily hyped up about the Platform is the ability to see changes made to an app while it is running with the "hot-reload" feature, potentially saving coders a decent amount of time when prototyping. It also allows for ahead of time (AOT) compiling to native machine code which makes for quick startup times for apps. It also has the ability to compiler into JavaScript so it can be used to create Web Apps out of the same source code that the mobile apps were developed with. Personally the hot reload/restart is my favorite part of the framework.
+
+The App that we will be creating in this tutorial is a Journal/Calendar type of application. It can create events which extend journal entries and then has a calendar on which to view them as well. The basic Concepts can be seen in these pictures.
+
+#### Home
+
+![homepage](./Images/homepage.png)
+
+#### Event Page
+![eventpage](./Images/eventpage.png)
+
+#### toString events
+![event](./Images/eventpage.png)
+
+#### Calendar Page
+![calendarpage](./Images/calendarpage.png)
 
 ## Getting Started
 
