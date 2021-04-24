@@ -1,10 +1,10 @@
 # myapp
 
-A new Flutter application.
+Journal App for botanists
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This project is a starting point for a calendar Flutter application that can create journals of plants.
 
 A few resources to get you started if this is your first Flutter project:
 
