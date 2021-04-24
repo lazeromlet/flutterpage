@@ -77,8 +77,342 @@ import 'package:table_calendar/table_calendar.dart';
 import './utils.dart';
 ```
 
+For the classes 'utils.dart' and 'events_example.dart', they are what create our sample calendar for our app, and were created by user aleksanderwozniak in the examples folder of their gitHub repository. 'events_example.dart' is unchanged I believe at this point so copying and giving credit directly to the source will be best in your application.
+
+### Quick Steps to Create the application. 
+
+### Copying events_example.dart from gitHub
+
+[gitHub link](https://github.com/aleksanderwozniak/table_calendar/blob/master/example/lib/pages/events_example.dart)
+
+#### Setting up JournalEntry.dart
+
+This file is just a simple class that we will use to hold the values of the plant entries and is extended later by our events class in 'util.dart'. to throw it together it looks something like this:
+
+```markdown
+library journals;
+
+class JournalEntry {
+  late String _title;
+  late String _plant;
+  late int _age;
+  late int _height;
+  late bool _wasWatered;
+  late bool _wasTrained;
+  late bool _isFlowering;
+  
+  JournalEntry(){
+    this._title       = '';
+    this._plant       = '';
+    this._age         = 0;
+    this._height      = 0;
+    this._isFlowering = false;
+    this._wasTrained  = false;
+    this._wasWatered  = false;
+  }
+  JournalEntry.full(String title, String plant, int age, int height, bool isFlowering, bool wasTrained, bool wasWatered) {
+    this._title       = _title;
+    this._plant       = _plant;
+    this._age         = _age;
+    this._height      = _height;
+    this._isFlowering = _wasWatered;
+    this._wasTrained  = _wasTrained;
+    this._wasWatered  = _isFlowering;
+  }
+}
+```
+
+Take note that the library is set differently this is how dart is able to use inheritance, as classes can be grouped together.
+
+### Setting up utils.dart
+
+You can also copy and paste the original code here, but some editting will need to be done first before it works for our purposes. 
+
+[utils.dart link](https://github.com/aleksanderwozniak/table_calendar/blob/master/example/lib/utils.dart)
+
+#### Quick utils edits
+
+to make this work for us, change the Event class to extend JournalEntry and add relavent variables and constructors, an example is below.
+
+##### Event Class
+```markdown
+/// extended example events
+class Event extends JournalEntry{
+  String title;
+  String plant;
+  int    age;
+  int    height;
+  bool   isFlowering;
+  bool   wasTrained;
+  bool   wasWatered;
+
+  Event.full(this.title, this.plant, this.age, this.height, this.isFlowering, this.wasTrained, this.wasWatered);
+
+  @override
+  String toString() => "$title: $plant, $age days old, $height inches tall, $isFlowering (flowering), $wasTrained (training), $wasWatered (watered)";
+}
+```
+In addition a quick switch from dynamic to Event will fix kEvents for us.
+
+##### kEvents
+```markdown
+final kEvents = LinkedHashMap<DateTime, List<Event>>
+```
+
+Finally adapt the hashmap to include all the items in an Event and create some filler data for us to observe.
+
+##### kEventSource
+```markdown
+final _kEventSource = Map.fromIterable(List.generate(50, (index) => index),
+    key: (item) => DateTime.utc(2021, 3, item * 5),
+    value: (item) => List.generate(
+        item % 4 + 1, (index)  => Event.full('Event $item', 'strawberry', (item%4 + index), (1 + index), false, false, true )))
+  ..addAll({
+    DateTime.now(): [
+      Event.full('Event 1', 'grapes', 42, 25, false, true, true),
+    ],
+  });
+```
+
+### Main
+
+Some of main will be there on startup but using this code in place of that will make our program run.
+
+copy and paste from the main gitHub branch or copy and paste from below
+
+```markdown
+void main() {
+  initializeDateFormatting().then((_) => runApp(MyApp()));
+}
+
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+      ),
+      home: MyHomePage(title: 'Flutter Demo'),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key? key, required this.title}) : super(key: key);
+  final String title;
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        title: Text(widget.title),
+      ),
+      body: Center(
+        // Center is a layout widget. It takes a single child and positions it
+        // in the middle of the parent.
+        child: Column(
+          // Column is also a layout widget. It takes a list of children and
+          // arranges them vertically. By default, it sizes itself to fit its
+          // children horizontally, and tries to be as tall as its parent.
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Welcome, press here to start',
+            ),
+            TextButton(
+              child: Text('LogIn', style: TextStyle(fontSize: 20.0),),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  new MaterialPageRoute(builder: (context) => new ListDisplay()),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class DynamicList extends State<ListDisplay> {
+  Event event = new Event.full(
+      '',
+      '',
+      0,
+      0,
+      false,
+      false,
+      false);
+  List<Event> events = [];
+  final TextEditingController eCtrlTitle = new TextEditingController();
+  final TextEditingController eCtrlPlant = new TextEditingController();
+  final TextEditingController eCtrlAge = new TextEditingController();
+  final TextEditingController eCtrlHeight = new TextEditingController();
+  final TextEditingController eCtrlIsFlowering = new TextEditingController();
+  final TextEditingController eCtrlWasTrained = new TextEditingController();
+  final TextEditingController eCtrlWasWatered = new TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+        appBar: new AppBar(
+          title: new Text("Journal Entries"),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.ballot_rounded),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (context) => new HomeCalendarPage()),
+                );
+              },
+            ),
+          ],
+        ),
+        body: new Column(
+          children: <Widget>[
+            new Text(
+                'Enter event title'
+            ),
+            new TextField(
+              controller: eCtrlTitle, onSubmitted: (text) {
+              event.title = text;
+              eCtrlTitle.clear();
+              setState(() {});
+            },
+            ),
+            new Text(
+                'Enter plant name'
+            ),
+            new TextField(
+              controller: eCtrlPlant, onSubmitted: (text) {
+              event.plant = text;
+              eCtrlPlant.clear();
+              setState(() {});
+            },
+            ),
+            new Text(
+                'Enter age'
+            ),
+            new TextField(
+              controller: eCtrlAge, onSubmitted: (text) {
+              event.age = int.parse(text);
+              eCtrlAge.clear();
+              setState(() {});
+            },
+            ),
+            new Text(
+                'Enter height'
+            ),
+            new TextField(
+              controller: eCtrlHeight, onSubmitted: (text) {
+              event.height = int.parse(text);
+              eCtrlHeight.clear();
+              setState(() {});
+            },
+            ),
+            new Text(
+                'Is the plant flowering? (true/false)'
+            ),
+            new TextField(
+              controller: eCtrlIsFlowering, onSubmitted: (text) {
+              event.isFlowering = toBoolean(text);
+              eCtrlIsFlowering.clear();
+              setState(() {});
+            },
+            ),
+            new Text(
+                'Is the plant get trained? (true/false)'
+            ),
+            new TextField(
+              controller: eCtrlWasTrained, onSubmitted: (text) {
+              event.wasTrained = toBoolean(text);
+              eCtrlWasTrained.clear();
+              setState(() {});
+            },
+            ),
+            new Text(
+                'Did the plant get watered? (true/false)'
+            ),
+            new TextField(
+              controller: eCtrlWasWatered, onSubmitted: (text) {
+              event.wasWatered = toBoolean(text);
+              eCtrlWasWatered.clear();
+              setState(() {});
+            },
+            ),
+            TextButton.icon(
+              label: Text('Create Event', style: TextStyle(
+                  fontSize: 25.0, backgroundColor: Colors.green),),
+              icon: Icon(Icons.add_circle_outlined),
+              onPressed: () {
+                events.add(event);
+                print(events);
+              },
+            ),
+          ],
+        )
+    );
+  }
+}
+
+// retrieved from: https://pub.dev/documentation/string_validator/latest/string_validator/toBoolean.html
+bool toBoolean(String str, [bool strict = false]) {
+  if (strict == true) {
+    return str == '1' || str == 'true';
+  }
+  return str != '0' && str != 'false' && str != '';
+}
 
 
+class ListDisplay extends StatefulWidget {
+  @override
+  State createState() => new DynamicList();
+}
+
+class HomeCalendarPage extends StatefulWidget {
+  @override
+  _HomeCalendarPageState createState() => _HomeCalendarPageState();
+}
+
+class _HomeCalendarPageState extends State<HomeCalendarPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('TableCalendar Example'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              child: Text('Events'),
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => TableEventsExample()),
+              ),
+            ),
+            const SizedBox(height: 12.0),
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
 
 
 ## Discussion & Conclusions
