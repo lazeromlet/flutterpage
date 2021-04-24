@@ -1,7 +1,5 @@
 # Welcome to Flutter and Dart
 
-You can use the [editor on GitHub](https://github.com/lazeromlet/flutterpage/edit/gh-pages/index.md)
-
 ## Overview
 
 Flutter is a toolkit that allows you to create applications for Android and IOS from a single codebase in a different language entirely. Flutter runs with the dart language as its Coding language. This language was specifically designed for Flutter it has relatively simple syntax and is easy to pick up. Flutter was designed specifically for creating User Interfaces (UI’s) and that is what it is best at. In Flutter everything is essentially a widget and UI's are created with widget trees, widgets can be inside of other widgets and have text or anything else be inside of them as well. It allows for static and dynamic typing when coding variables. One of the features heavily hyped up about the Platform is the ability to see changes made to an app while it is running with the "hot-reload" feature, potentially saving coders a decent amount of time when prototyping. It also allows for ahead of time (AOT) compiling to native machine code which makes for quick startup times for apps. It also has the ability to compiler into JavaScript so it can be used to create Web Apps out of the same source code that the mobile apps were developed with.
@@ -174,11 +172,13 @@ final _kEventSource = Map.fromIterable(List.generate(50, (index) => index),
   });
 ```
 
+The code aboce is useful for us as it creates some dumby data to populate our calendar.
+
 ### Main
 
 Some of main will be there on startup but using this code in place of that will make our program run.
 
-copy and paste from the main gitHub branch or copy and paste from below
+copy and paste from the main gitHub branch or copy and paste from below.
 
 ```markdown
 void main() {
@@ -414,36 +414,30 @@ class _HomeCalendarPageState extends State<HomeCalendarPage> {
 }
 ```
 
+Here you can really see the widget tree that we are generating in our app. In Flutter everything on the UI is a widget, down to the text, this can be very confusing at times trying to find where a particular widget should go, especially after the general outline is already created. 
+
+For Pages we create a class that extends stateless (unchanging) and stateful (changing) widgets, to navigate these pages we create a child of a widget (usually a button) and when it is pressed we change both the Navigator (stack of views) and the route which points to where to go next. 
+
+All main widgets begin like this:
+
+```markdown
+@override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('sample'),
+        ),
+```
+
+From there usually there is a body, column and an array widget of children widgets which usually form the more intricate details of our flutter pages. For each text field a widget, a textconmtroller, and the event object are used, with the event getting updated incrimentally by each different textcontroller.  After that it's just figuring our the different documentation related to dart to get a grasp of the different widgets and where they go.
+
+Congratulations! you can now see for yourself how flutter works and you're on your way to begin coding in dart!
+
 
 ## Discussion & Conclusions
 
+Flutter is a useful framework for creating simple UI that is fast loading and immediately cross platform on release. most of the code resides in a single source for the codebase, which simplifies a lot for developers. It has a lot of prebaked functionality that you can find for creating UI's which were utilized here in the form of calendar, but many pieces of code can be used together because of the widget tree style of coding in this language. 
 
+Flutter is not the only way people can create cross-platform apps, they can do so in web languages and create web apps that work on anything. However Flutter is always an upgrade over this kind of approach as it is able to compile down into assembly code and javascript, and can be AOT compiled drastically improving startup time and responsiveness. 
 
-
-
-
-
-
-
-
-
-
-
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
+It is not all sunshine and rainbows here however, While flutter may be useful in any sort of UI design, using it outside of this area gets very complicated very quickly. Although the widget tree looks nice and creates a nice hierarchy of widgets, it also can lead to very verbose looking bloaty code that can make it very difficult to find where a particular widget is. On top of this it also makes it more confusing with so many different widgets and paramaters for each widget, it can be tricky finding where a widget needs to reside to function pproperly.
